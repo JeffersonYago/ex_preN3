@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controle {
 public String local = "";
@@ -27,24 +29,28 @@ public String nome = "marq.json";
 			BufferedReader buffer  = new BufferedReader(leitor);
 			String linha = buffer.readLine();
 			while (linha != null) {
-				String[] divideLinha = linha.split("null,");
-				String cortaLinha = divideLinha[0];
-			 int a = linha.indexOf("strInstructionsIT");
-			 int b = linha.indexOf(",\"strInstructionsZH-HANS");
-				cortaLinha = linha.substring(a,b);
-				System.out.println(cortaLinha);
-				linha = buffer.readLine();
+					String[] Split = linha.split("null,");
+					int tam = Split.length;
+					for(int i=0; i < tam; i++) {
+					Pattern regex = Pattern.compile("strInstructionsIT(.+),");
+					Matcher matcher = regex.matcher(Split[i]);
+					while (matcher.find()) {
+						String res = matcher.group(1);
+						res = res.replace("\":", "");
+						System.out.println(res);
+					}
+					 linha = buffer.readLine();
+					}
 			}
-			buffer.close();
-			leitor.close();
-			fluxo.close();
-			
+					 buffer.close();
+					 leitor.close();
+					 fluxo.close();
 		}else {
 			throw new IOException("Arquivo Inválido");
 		}
+	
 	}
-	}
-
+}
 	
 	
 

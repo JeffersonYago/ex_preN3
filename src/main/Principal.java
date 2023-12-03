@@ -9,7 +9,6 @@ public class Principal {
 	public static void main(String[] args) throws IOException {
 			Controle ctr = new Controle();
 			ctr.lerArquivo();
-			
 	}
 	}
 /*Pegar o conteúdo do site: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita 
